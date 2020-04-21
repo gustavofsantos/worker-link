@@ -2,6 +2,8 @@
 
 Opionated library to work with threads in Node.js.
 
+Attention: This library is in heavy development, you should not use it in production.
+
 ### Prologue
 
 I really like the Elixir way to deal with processes and concurrent communication. But I really love Node and all JS community. And I love so much types and resilient programming. This is the reason to creating this library.
