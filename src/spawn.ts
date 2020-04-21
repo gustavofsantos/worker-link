@@ -1,7 +1,8 @@
 import {Worker} from 'worker_threads';
+import {randomBytes} from 'crypto';
 
 interface Spawn {
-  send: <T>(data: T) => void;
+  send: <T, R>(data: T) => Promise<R>;
   exit: () => Promise<number>;
   getId: () => number;
 }
@@ -10,19 +11,24 @@ interface Spawn {
  * Spawn a decorated class and returns an object to send messages
  * to the spawned class
  *
- * @param {function} WorkerDecoratedClass
+ * @param {function} WorkerJobClass
  * @return {object}
  */
-export default function spawn(WorkerDecoratedClass: any): Spawn {
-  const w = new Worker(WorkerDecoratedClass.prototype.filename);
+export default function spawn(WorkerJobClass: any): Spawn {
+  const w = new Worker(WorkerJobClass.prototype.filename);
 
   return {
-    send: <T>(data: T) => {
-      w.postMessage(data);
+    send: (data) => {
+      const msgId = randomBytes(32).toString('hex');
+      w.postMessage({msgId, data});
 
       return new Promise((resolve, reject) => {
-        w.once('message', resolve);
-        w.once('error', reject);
+        w.on('message', ({replyTo, data}) => {
+          if (replyTo === msgId) {
+            resolve(data);
+          }
+        });
+        w.on('error', reject);
       });
     },
     exit: async () => await w.terminate(),

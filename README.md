@@ -1,8 +1,10 @@
 # Worker Link
 
-Opionated library to work with threads in Node.js.
+Opinionated library to work with threads in Node.js.
 
 Attention: This library is in heavy development, you should not use it in production.
+
+[demo gif]( "Demo gif")
 
 ### Prologue
 
@@ -100,5 +102,5 @@ All spawned thread-class does not terminate when respond to a given message, if 
 
 - [x] Spawn classes as threads.
 - [ ] Spawn classes wrapped in supervisors.
-- [ ] Spawn Supervisors wrapped in supervisors creating the Supervisor tree.
+- [ ] Spawn supervisors wrapped in supervisors creating the supervisor tree.
 - [ ] Better Typescript support

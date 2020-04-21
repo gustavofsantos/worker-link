@@ -19,6 +19,9 @@
     "email": "gfdsantos@protonmail.com",
     "url": "https://github.com/gustavofsantos"
   },
+  "repository": {
+    "url": "https://github.com/gustavofsantos/worker-link"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^13.13.1",

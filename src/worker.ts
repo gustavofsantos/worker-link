@@ -1,4 +1,5 @@
 import {parentPort} from 'worker_threads';
+import {randomBytes} from 'crypto';
 
 interface Config {
   filename: string;
@@ -19,7 +20,13 @@ export default function worker(config: Config) {
    */
   return function WorkerDecoratedClass(Target: any) {
     Target.prototype.filename = config.filename;
-    parentPort?.on('message', (data) => Target.prototype.receive(data));
+    Target.prototype.workerId = randomBytes(32).toString('hex');
+
+    parentPort?.on('message', ({msgId, data}) => {
+      Target.prototype.receive(data, msgId);
+    });
+
+    parentPort?.on('close', () => Target.prototype.exit());
 
     return Target;
   };
