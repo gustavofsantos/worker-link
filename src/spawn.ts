@@ -1,8 +1,8 @@
 import {Worker} from 'worker_threads';
 import {randomBytes} from 'crypto';
 
-interface Spawn {
-  send: <T, R>(data: T) => Promise<R>;
+export interface Spawn {
+  send: <T, R>(data?: T) => Promise<R>;
   exit: () => Promise<number>;
   getId: () => number;
 }
