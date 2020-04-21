@@ -1,6 +1,12 @@
 # Worker Link
 
-Opionated library to work with threads in Node.js
+Opionated library to work with threads in Node.js.
+
+### Prologue
+
+I really like the Elixir way to deal with processes and concurrent communication. But I really love Node and all JS community. And I love so much types and resilient programming. This is the reason to creating this library.
+
+The `worker-link` library is a set of classes and functions to write JavaScript classes that can run in parallel. Yes, parallel. This library is built on top of Node.js `worker_threads` module.
 
 ### Getting Started
 
@@ -77,3 +83,20 @@ received from thread: OK!
 
 $
 ```
+
+### How it works?
+
+All thread-classes should extend of the WorkerJob class because this class implements the `reply` method, used to respond when a given message is received.
+
+In TypeScript you can decorate the thread-class with the `worker` function, or you can compose it, as the way that it works with JavaScript.
+
+When you spawn a thread-class the method `send` is exposed and you can send any type of messages to that class and wait for the response. The `send` method returns a Promise, so it's easy to handle the thread result.
+
+All spawned thread-class does not terminate when respond to a given message, if you need to terminate a thread, you can call the method `exit`.
+
+### Roadmap
+
+- [x] Spawn classes as threads.
+- [ ] Spawn classes wrapped in supervisors.
+- [ ] Spawn Supervisors wrapped in supervisors creating the Supervisor tree.
+- [ ] Better Typescript support
