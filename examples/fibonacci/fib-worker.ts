@@ -1,5 +1,5 @@
-import {WorkerJob} from '../..';
-import worker from '../worker';
+import WorkerJob from '../../src/worker-job';
+import worker from '../../src/worker';
 
 @worker({filename: __filename})
 export class FibWorker extends WorkerJob {

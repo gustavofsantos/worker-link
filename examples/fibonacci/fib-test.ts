@@ -1,4 +1,4 @@
-import spawn from '../spawn';
+import spawn from '../../src/spawn';
 import {FibWorker} from './fib-worker';
 
 for (let i = 0; i < 8; i++) {
