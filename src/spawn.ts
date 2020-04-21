@@ -25,6 +25,7 @@ export default function spawn(WorkerJobClass: any): Spawn {
       return new Promise((resolve, reject) => {
         w.on('message', ({replyTo, data}) => {
           if (replyTo === msgId) {
+            if (data instanceof Error) resolve(undefined);
             resolve(data);
           }
         });
