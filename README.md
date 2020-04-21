@@ -53,7 +53,7 @@ for (let i = 0; i < 8; i++) {
 
 Remember: you need to compile first because the decorator `@worker` uses the `__filename` injected reference. The code uses all threads of an AMD Ryzen 7 processor:
 
-[](https://github.com/gustavofsantos/worker-link/blob/master/res/demo1.png)
+[demo image](https://github.com/gustavofsantos/worker-link/blob/master/res/demo1.png 'Resource usage')
 
 ### Example with JavaScript
 
