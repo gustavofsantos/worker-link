@@ -4,8 +4,6 @@ Opinionated library to work with threads in Node.js.
 
 Attention: This library is in heavy development, you should not use it in production.
 
-[demo gif]( "Demo gif")
-
 ### Prologue
 
 I really like the Elixir way to deal with processes and concurrent communication. But I really love Node and all JS community. And I love so much types and resilient programming. This is the reason to creating this library.
@@ -17,6 +15,45 @@ The `worker-link` library is a set of classes and functions to write JavaScript 
 ```
 npm install worker-link
 ```
+
+### Example with TypeScript
+
+```typescript
+// fib-worker.ts
+import {worker, WorkerJob} from 'worker-link';
+
+@worker({filename: __filename})
+export class FibWorker extends WorkerJob {
+  fib(num: number): number {
+    if (num === 0 || num === 1) {
+      return num;
+    }
+    return this.fib(num - 1) + this.fib(num - 2);
+  }
+
+  receive(data: number, from: string) {
+    const result = this.fib(data);
+    this.reply(result, from);
+  }
+}
+```
+
+```typescript
+// index.ts
+import spawn from '../../src/spawn';
+import {FibWorker} from './fib-worker';
+
+for (let i = 0; i < 8; i++) {
+  const fw = spawn(FibWorker);
+  fw.send(43)
+    .then((res) => console.log(`[${i}] fib(43) = ${res}`))
+    .finally(() => fw.exit());
+}
+```
+
+Remember: you need to compile first because the decorator `@worker` uses the `__filename` injected reference. The code uses all threads of an AMD Ryzen 7 processor:
+
+[](https://github.com/gustavofsantos/worker-link/blob/master/res/demo1.png)
 
 ### Example with JavaScript
 
