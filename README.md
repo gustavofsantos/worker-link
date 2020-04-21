@@ -40,7 +40,7 @@ export class FibWorker extends WorkerJob {
 
 ```typescript
 // index.ts
-import spawn from '../../src/spawn';
+import {spawn} from 'worker-link';
 import {FibWorker} from './fib-worker';
 
 for (let i = 0; i < 8; i++) {
