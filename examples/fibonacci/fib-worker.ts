@@ -7,7 +7,6 @@ export class FibWorker extends WorkerJob {
     if (num === 0 || num === 1) {
       return num;
     }
-
     return this.fib(num - 1) + this.fib(num - 2);
   }
 
