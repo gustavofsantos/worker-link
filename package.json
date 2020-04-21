@@ -2,12 +2,23 @@
   "name": "worker-link",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "npm run compile",
+    "compile": "tsc"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "worker",
+    "thread",
+    "process",
+    "parallel"
+  ],
+  "author": {
+    "name": "Gustavo Fernandes dos Santos",
+    "email": "gfdsantos@protonmail.com",
+    "url": "https://github.com/gustavofsantos"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^13.13.1",

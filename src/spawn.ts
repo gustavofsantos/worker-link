@@ -1,5 +1,11 @@
 import {Worker} from 'worker_threads';
 
+interface Spawn {
+  send: <T>(data: T) => void;
+  exit: () => Promise<number>;
+  getId: () => number;
+}
+
 /**
  * Spawn a decorated class and returns an object to send messages
  * to the spawned class
@@ -7,11 +13,11 @@ import {Worker} from 'worker_threads';
  * @param {function} WorkerDecoratedClass
  * @return {object}
  */
-export default function spawn(WorkerDecoratedClass: any) {
+export default function spawn(WorkerDecoratedClass: any): Spawn {
   const w = new Worker(WorkerDecoratedClass.prototype.filename);
 
   return {
-    send: (data: any) => {
+    send: <T>(data: T) => {
       w.postMessage(data);
 
       return new Promise((resolve, reject) => {
@@ -19,5 +25,7 @@ export default function spawn(WorkerDecoratedClass: any) {
         w.once('error', reject);
       });
     },
+    exit: async () => await w.terminate(),
+    getId: () => w.threadId,
   };
 }
