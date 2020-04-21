@@ -3,7 +3,7 @@ import {parentPort} from 'worker_threads';
 /**
  * WorkerJob class
  */
-export abstract class WorkerJob {
+export default abstract class WorkerJob {
   abstract receive(data: any): void;
 
   /**

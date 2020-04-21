@@ -1,4 +1,4 @@
-import {WorkerJob} from '../worker-job';
+import WorkerJob from '../worker-job';
 import worker from '../worker';
 
 export type MathCalc = {op: 'add' | 'mult'; data: number[]};
